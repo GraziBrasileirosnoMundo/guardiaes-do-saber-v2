@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5b21b6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+  <path d="M128 20 L60 50 L60 120 Q60 180 128 220 Q196 180 196 120 L196 50 Z" fill="url(#glowGrad)" opacity="0.5"/>
+  <path d="M128 30 L70 55 L70 120 Q70 170 128 205 Q186 170 186 120 L186 55 Z" fill="url(#shieldGrad)"/>
+  <path d="M128 35 L75 58 L75 120 Q75 165 128 198 Q181 165 181 120 L181 58 Z" fill="#6d28d9"/>
+  <polygon points="128,85 138,110 165,110 143,125 150,150 128,135 106,150 113,125 91,110 118,110" fill="#f59e0b"/>
+  <polygon points="128,90 136,110 155,110 140,121 145,140 128,128 111,140 116,121 101,110 120,110" fill="#fbbf24"/>
+</svg>
