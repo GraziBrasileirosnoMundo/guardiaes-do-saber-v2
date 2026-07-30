@@ -196,6 +196,12 @@ export function GameHub() {
   const temReclamavel = podeReclamar(p.missaoDiaria) || podeReclamar(p.missaoSemanal) || podeReclamar(p.missaoMensal);
   const completedWorlds = MUNDOS.filter(m => m.completed).length;
 
+  // Calcular dinamicamente se cada mundo está desbloqueado
+  const isWorldUnlocked = (mundo: typeof MUNDOS[0]) => {
+    if (mundo.id === 1) return true; // Primeiro mundo sempre desbloqueado
+    return (p?.batalhasConcluidas ?? 0) >= mundo.batalhaPara;
+  };
+
   return (
     <div
       className="min-h-screen bg-gradient-to-b from-slate-950 via-purple-950 to-slate-950 pb-20"
@@ -257,7 +263,9 @@ export function GameHub() {
             <p className="text-gray-400 text-sm mb-4">Explore, aprenda e conquista cada lugar mágico!</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {MUNDOS.map((mundo, idx) => (
+              {MUNDOS.map((mundo, idx) => {
+                const isLocked = !isWorldUnlocked(mundo);
+                return (
                 <motion.button
                   key={mundo.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -266,7 +274,7 @@ export function GameHub() {
                   whileHover={{ y: -8 }}
                   onMouseEnter={() => playSound('hover')}
                   onClick={() => {
-                    if (mundo.locked) {
+                    if (isLocked) {
                       playSound('error');
                     } else {
                       playSound('click');
@@ -275,12 +283,12 @@ export function GameHub() {
                     }
                   }}
                   className="group cursor-pointer bg-transparent border-none p-0"
-                  disabled={mundo.locked}
+                  disabled={isLocked}
                 >
                   <div className={`relative h-40 bg-gradient-to-br ${mundo.background} rounded-2xl border-2 ${mundo.borderColor} overflow-hidden transition-all group-hover:shadow-2xl group-hover:${mundo.shadowColor}`}>
                     <WorldCardImage mundoId={mundo.id} nome={mundo.nome} />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-                    {mundo.locked && (
+                    {isLocked && (
                       <div className="absolute top-3 right-3 bg-slate-800/80 p-2 rounded-lg z-10">
                         <Lock className="w-5 h-5 text-gray-400" />
                       </div>
@@ -292,7 +300,8 @@ export function GameHub() {
                     </div>
                   </div>
                 </motion.button>
-              ))}
+                );
+              })}
             </div>
           </motion.div>
 

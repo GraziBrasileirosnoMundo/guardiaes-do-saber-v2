@@ -43,11 +43,26 @@ class AudioManager {
   }
 
   private initAudioContext(): void {
-    if (this.audioContext) return;
+    if (this.audioContext) {
+      // Se já existe, verificar se está suspenso (mobile)
+      if (this.audioContext.state === 'suspended') {
+        this.audioContext.resume().catch((e) => {
+          console.warn('⚠️ Erro ao resumir AudioContext:', e);
+        });
+      }
+      return;
+    }
     if (typeof window === 'undefined') return;
     try {
       this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
       console.log('✅ AudioContext inicializado');
+
+      // Se criar já suspended (mobile), resumir
+      if (this.audioContext.state === 'suspended') {
+        this.audioContext.resume().catch((e) => {
+          console.warn('⚠️ Erro ao resumir AudioContext:', e);
+        });
+      }
     } catch (e) {
       console.error('❌ Erro ao criar AudioContext:', e);
     }
@@ -246,6 +261,13 @@ class AudioManager {
       // Garantir que AudioContext foi inicializado
       this.initAudioContext();
 
+      // Tentar resumir AudioContext se estiver suspenso (mobile)
+      if (this.audioContext && this.audioContext.state === 'suspended') {
+        this.audioContext.resume().catch((e) => {
+          console.warn('⚠️ AudioContext ainda está suspenso:', e);
+        });
+      }
+
       // Parar som anterior
       if (this.currentAudio) {
         this.currentAudio.pause();
@@ -276,6 +298,17 @@ class AudioManager {
       this.currentAudio = audio;
     } catch (error) {
       console.error(`Erro ao reproduzir som ${soundKey}:`, error);
+    }
+  }
+
+  // Método público para desbloqueio de áudio (mobile) - deve ser chamado em uma interação
+  unblockAudio(): void {
+    if (this.audioContext && this.audioContext.state === 'suspended') {
+      this.audioContext.resume().then(() => {
+        console.log('✅ Áudio desbloqueado!');
+      }).catch((e) => {
+        console.error('❌ Erro ao desbloquear áudio:', e);
+      });
     }
   }
 
