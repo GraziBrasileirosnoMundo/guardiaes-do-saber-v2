@@ -1,13 +1,8 @@
-import { Perfil } from '@/types';
+import { Perfil, ObjetivoProximo } from '@/types';
 import { xpFaltaProximoNivel } from '@/lib/gameLogic';
 import { mundoProgresso } from '@/data/world';
 import { podeReclamar } from '@/lib/missions';
 
-export interface ObjetivoProximo {
-  icone: string;
-  texto: string;
-  tipo: 'missao' | 'nivel' | 'mundo' | 'colecao';
-}
 
 // Devolve os objetivos mais próximos para alimentar o gancho "só mais uma partida".
 export function proximosObjetivos(perfil: Perfil | null): ObjetivoProximo[] {

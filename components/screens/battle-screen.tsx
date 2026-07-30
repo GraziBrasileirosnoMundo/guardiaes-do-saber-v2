@@ -264,13 +264,22 @@ export function BattleScreen() {
           >
             {/* Discipline badge */}
             <div className="flex justify-center mb-2">
-              <span className={`text-xs px-3 py-1 rounded-full ${
-                pergunta?.disciplina === 'Matematica'
-                  ? 'bg-blue-900/50 text-blue-300'
-                  : 'bg-amber-900/50 text-amber-300'
-              }`}>
-                {pergunta?.disciplina === 'Matematica' ? '📊 Matemática' : '📚 Português'}
-              </span>
+              {(() => {
+                const disc = pergunta?.disciplina;
+                let bgClass = 'bg-blue-900/50 text-blue-300';
+                let label = '📊 Matemática';
+                if (disc === 'Portugues') {
+                  bgClass = 'bg-amber-900/50 text-amber-300';
+                  label = '📚 Português';
+                } else if (disc === 'Estudo do Meio') {
+                  bgClass = 'bg-green-900/50 text-green-300';
+                  label = '🌍 Estudo do Meio';
+                } else if (disc === 'Ingles') {
+                  bgClass = 'bg-pink-900/50 text-pink-300';
+                  label = '🗣️ Inglês';
+                }
+                return <span className={`text-xs px-3 py-1 rounded-full ${bgClass}`}>{label}</span>;
+              })()}
             </div>
 
             <div className="bg-slate-800/60 rounded-xl p-4 mb-4 border border-purple-700/15">

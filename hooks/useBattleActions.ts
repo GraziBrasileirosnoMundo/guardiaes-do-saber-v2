@@ -134,7 +134,7 @@ export function useBattleActions({
     if (perfilRef.current) {
       registarEvento(perfilRef.current.id, 'batalha_abandonada');
     }
-    onSetEstado(null);
+    onSetEstado(() => null);
     onSetFeedback(null);
     onSetBatalhaTerminada(false);
   }, [onSetEstado, onSetFeedback, onSetBatalhaTerminada]);

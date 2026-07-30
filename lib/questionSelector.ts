@@ -69,14 +69,14 @@ export function selecionarPerguntas(perfil: Perfil, quantidade: number = 5): Per
 
   scored.sort((a: any, b: any) => (b?.score ?? 0) - (a?.score ?? 0));
 
-  // Select alternating disciplines
+  // Select alternating disciplines (4 disciplinas: Matemática, Português, Estudo do Meio, Inglês)
   const selecionadas: Pergunta[] = [];
-  const disciplinas = ['Matematica', 'Portugues'];
+  const disciplinas = ['Matematica', 'Portugues', 'Estudo do Meio', 'Ingles'];
   let discIdx = 0;
 
   for (const item of scored) {
     if (selecionadas.length >= quantidade) break;
-    const targetDisc = disciplinas[discIdx % 2];
+    const targetDisc = disciplinas[discIdx % 4];
     if (item?.pergunta?.disciplina === targetDisc || selecionadas.length >= quantidade - 1) {
       selecionadas.push(item.pergunta);
       discIdx++;

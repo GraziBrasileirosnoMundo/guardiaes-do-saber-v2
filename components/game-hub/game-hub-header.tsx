@@ -5,14 +5,15 @@ import { GuardianAvatar } from '@/components/guardians/guardian-avatar';
 import { GuardianSpeech } from '@/components/guardians/guardian-speech';
 import { CountUp } from '@/components/ui/count-up';
 import { ProgressBar } from '@/components/ui/progress-bar';
-import { Profile, GuardianMessage } from '@/types';
+import { Perfil } from '@/types';
 import { proximosObjetivos } from '@/lib/objectives';
+import type { FalaGuardiao } from '@/data/guardian-messages';
 
 interface GameHubHeaderProps {
-  perfil: Profile;
+  perfil: Perfil;
   nivelInfo: { nivel: number; progresso: number } | null;
   is2: boolean;
-  saudacao: GuardianMessage;
+  saudacao: FalaGuardiao;
 }
 
 export function GameHubHeader({ perfil, nivelInfo, is2, saudacao }: GameHubHeaderProps) {

@@ -19,18 +19,18 @@ export function useDailyQuests(perfil: Perfil | null) {
   useEffect(() => {
     if (!perfil) return;
 
-    const missaoDiaria = perfil.missaoDiaria;
+    const questsDiaria = perfil.questsDiaria;
 
-    // Se não tem missão diária ou é de outro dia
-    if (!missaoDiaria || !verificarSeEhHoje(missaoDiaria.data)) {
+    // Se não tem quests de hoje ou é de outro dia
+    if (!questsDiaria || !verificarSeEhHoje(questsDiaria.data)) {
       // Gera novas quests para hoje
       const novasQuests = gerarQuestsDodia();
       setQuests(novasQuests);
       setBonusCompletado(false);
     } else {
       // Carrega as quests de hoje
-      setQuests(missaoDiaria.quests);
-      setBonusCompletado(missaoDiaria.bonusCompletado || false);
+      setQuests(questsDiaria.quests);
+      setBonusCompletado(questsDiaria.bonusCompletado || false);
     }
   }, [perfil?.id]);
 

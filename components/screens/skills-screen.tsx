@@ -23,6 +23,8 @@ export function SkillsScreen() {
   const competencias = calcularCompetencias(p);
   const mat = competencias.filter((c) => c.disciplina === 'Matematica');
   const pt = competencias.filter((c) => c.disciplina === 'Portugues');
+  const estudo = competencias.filter((c) => c.disciplina === 'Estudo do Meio');
+  const ingles = competencias.filter((c) => c.disciplina === 'Ingles');
   const dominadas = competencias.filter((c) => c.dominado).length;
 
   const corBarra = (c: CompetenciaProgresso) => c.dominado ? '#f59e0b' : c.taxa >= 50 ? '#10b981' : c.tentativas > 0 ? '#ef4444' : '#64748b';
@@ -74,6 +76,8 @@ export function SkillsScreen() {
 
         <Bloco titulo="📊 Matemática" cor="#60a5fa" lista={mat} />
         <Bloco titulo="📚 Português" cor="#fbbf24" lista={pt} />
+        <Bloco titulo="🌍 Estudo do Meio" cor="#10b981" lista={estudo} />
+        <Bloco titulo="🗣️ Inglês" cor="#ec4899" lista={ingles} />
 
         <GameButton variant="secondary" fullWidth onClick={() => router.push('/game')}>Voltar</GameButton>
       </div>
@@ -92,7 +96,12 @@ export function SkillsScreen() {
                 <p className="font-display text-2xl font-bold text-amber-950">{p?.apelido}</p>
                 <p className="text-amber-900 text-sm mt-2">por dominar</p>
                 <p className="font-display text-xl font-bold text-amber-950">{certificado.tema}</p>
-                <p className="text-amber-800 text-xs mt-1">{certificado.disciplina === 'Matematica' ? 'Matemática' : 'Português'} — {certificado.taxa}% de acerto</p>
+                <p className="text-amber-800 text-xs mt-1">{
+                  certificado.disciplina === 'Matematica' ? 'Matemática' :
+                  certificado.disciplina === 'Portugues' ? 'Português' :
+                  certificado.disciplina === 'Estudo do Meio' ? 'Estudo do Meio' :
+                  'Inglês'
+                } — {certificado.taxa}% de acerto</p>
               </div>
               <p className="text-[11px] text-amber-800">Guardião {p?.nomeGuardiao} • Guardiões do Saber</p>
             </motion.div>

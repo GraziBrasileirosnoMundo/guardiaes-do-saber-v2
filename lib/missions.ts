@@ -1,4 +1,4 @@
-import { Perfil, MissaoEstado } from '@/types';
+import { Perfil, MissaoEstado, TipoMissao, DeltasMissao } from '@/types';
 import { MISSOES_DIARIAS, MISSOES_SEMANAIS, MISSOES_MENSAIS, MissaoTemplate } from '@/data/missions';
 
 // ---- Chaves de período ----
@@ -69,14 +69,6 @@ export function garantirMissoes(perfil: Perfil): Perfil {
   return p;
 }
 
-export interface DeltasMissao {
-  batalhas?: number;
-  acertos?: number;
-  perguntas?: number;
-  vitorias_perfeitas?: number;
-  itens?: number;
-  comboMax?: number;
-}
 
 function aplicarNumaMissao(m: MissaoEstado | null | undefined, d: DeltasMissao): { missao: MissaoEstado | null; concluiuAgora: boolean } {
   if (!m) return { missao: m ?? null, concluiuAgora: false };
@@ -112,7 +104,6 @@ export function aplicarProgressoMissoes(perfil: Perfil, d: DeltasMissao): { perf
   return { perfil: p, concluidas };
 }
 
-export type TipoMissao = 'diaria' | 'semanal' | 'mensal';
 
 export function getMissao(perfil: Perfil, tipo: TipoMissao): MissaoEstado | null {
   if (tipo === 'diaria') return perfil.missaoDiaria ?? null;

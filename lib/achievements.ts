@@ -1,16 +1,8 @@
-import { Perfil } from '@/types';
+import { Perfil, ContextoTrofeu } from '@/types';
 import { TROFEUS } from '@/data/trophies';
 import { mundoProgresso } from '@/data/world';
 import { calcularNivel } from '@/lib/gameLogic';
 
-export interface ContextoTrofeu {
-  batalhas: number;
-  nivel: number;
-  melhorCombo: number;
-  colecaoCount: number;
-  medalhasCount: number;
-  mundoCompletos: number;
-}
 
 export function contextoDoPerfil(perfil: Perfil): ContextoTrofeu {
   return {

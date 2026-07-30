@@ -30,6 +30,8 @@ function analisar(perfil: Perfil | null, metrics: EventoMetrica[]) {
   };
   const matTaxa = agg('Matematica');
   const ptTaxa = agg('Portugues');
+  const estudoTaxa = agg('Estudo do Meio');
+  const inglesTaxa = agg('Ingles');
 
   // engajamento (metrics)
   const diasUnicos = new Set(metrics.map((m) => m?.timestamp?.split('T')?.[0] ?? '').filter(Boolean));
@@ -47,7 +49,14 @@ function analisar(perfil: Perfil | null, metrics: EventoMetrica[]) {
   }
 
   const recomendacoes: string[] = [];
-  for (const d of dificuldades.slice(0, 3)) recomendacoes.push(`Rever “${d.tema}” (${d.disciplina === 'Matematica' ? 'Matemática' : 'Português'}) — ${d.taxa}% de acerto`);
+  for (const d of dificuldades.slice(0, 3)) {
+    const nomeDisciplina =
+      d.disciplina === 'Matematica' ? 'Matemática' :
+      d.disciplina === 'Portugues' ? 'Português' :
+      d.disciplina === 'Estudo do Meio' ? 'Estudo do Meio' :
+      'Inglês';
+    recomendacoes.push(`Rever “${d.tema}” (${nomeDisciplina}) — ${d.taxa}% de acerto`);
+  }
   if (dificuldades.length === 0 && rever.length > 0) recomendacoes.push(`Consolidar “${rever[0].tema}” para chegar ao domínio`);
   if (recomendacoes.length === 0) recomendacoes.push('Excelente! Continua a praticar um pouco todos os dias.');
 
@@ -59,7 +68,7 @@ function analisar(perfil: Perfil | null, metrics: EventoMetrica[]) {
     diasUnicos: diasUnicos.size,
     perguntasRespondidas: perguntas.length,
     batalhas: perfil.batalhasConcluidas ?? 0,
-    matTaxa, ptTaxa,
+    matTaxa, ptTaxa, estudoTaxa, inglesTaxa,
     domina, dificuldades, rever,
     progressoSemanal,
     recomendacoes,
@@ -120,6 +129,8 @@ export function ParentsScreen() {
               <div className="space-y-3">
                 <BarLinha rotulo="📊 Matemática" valor={stats.matTaxa} cor="#3b82f6" />
                 <BarLinha rotulo="📚 Português" valor={stats.ptTaxa} cor="#f59e0b" />
+                <BarLinha rotulo="🌍 Estudo do Meio" valor={stats.estudoTaxa} cor="#10b981" />
+                <BarLinha rotulo="🗣️ Inglês" valor={stats.inglesTaxa} cor="#ec4899" />
               </div>
             </Section>
 
@@ -210,9 +221,14 @@ function BarLinha({ rotulo, valor, cor }: { rotulo: string; valor: number; cor: 
 }
 
 function LinhaTema({ tema, disciplina, taxa, cor, dominado }: { tema: string; disciplina: string; taxa: number; cor: string; dominado?: boolean }) {
+  const sigla =
+    disciplina === 'Matematica' ? 'Mat' :
+    disciplina === 'Portugues' ? 'Port' :
+    disciplina === 'Estudo do Meio' ? 'E.M' :
+    'Ing';
   return (
     <div className="flex items-center justify-between bg-slate-800/30 rounded-lg px-3 py-2">
-      <span className="text-sm text-gray-300 truncate mr-2 flex items-center gap-1">{dominado && '🏅'}{tema}<span className="text-[10px] text-gray-500">({disciplina === 'Matematica' ? 'Mat' : 'Port'})</span></span>
+      <span className="text-sm text-gray-300 truncate mr-2 flex items-center gap-1">{dominado && '🏅'}{tema}<span className="text-[10px] text-gray-500">({sigla})</span></span>
       <div className="flex items-center gap-2">
         <div className="w-20"><ProgressBar value={taxa} color={cor} height={6} /></div>
         <span className="text-xs font-bold" style={{ color: cor }}>{taxa}%</span>

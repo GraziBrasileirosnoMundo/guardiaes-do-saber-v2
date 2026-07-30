@@ -21,7 +21,7 @@ export function ShopScreen() {
   const [mounted, setMounted] = useState(false);
   const [selecionado, setSelecionado] = useState<Colecionavel | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
-  const [shopkeeperMessage, setShopkeeperMessage] = useState<ShopkeeperMessage | null>(null);
+  const [shopkeeperMessage, setShopkeeperMessage] = useState<ShopkeeperMessage | undefined>();
 
   useEffect(() => {
     setMounted(true);

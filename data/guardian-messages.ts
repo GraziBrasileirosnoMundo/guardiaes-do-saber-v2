@@ -16,7 +16,7 @@ export type ContextoGuardiao =
   | 'medalha'
   | 'convite';
 
-interface FalaGuardiao {
+export interface FalaGuardiao {
   texto: string;
   expressao: Expressao;
 }

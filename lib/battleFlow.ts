@@ -1,4 +1,4 @@
-import { Perfil, BatalhaEstado, DropBau, MissaoEstado } from '@/types';
+import { Perfil, BatalhaEstado, DropBau, MissaoEstado, ResultadoBatalha } from '@/types';
 import { calcularNivel, atualizarStreak, avancarPortal } from '@/lib/gameLogic';
 import { gerarBau } from '@/lib/chests';
 import { aplicarProgressoMissoes } from '@/lib/missions';
@@ -6,21 +6,6 @@ import { novasMedalhas } from '@/lib/competencias';
 import { novosTrofeus } from '@/lib/achievements';
 import { calcularRecompensasBatalha, aplicarRecompensasBatalha } from '@/lib/battle-rewards';
 
-export interface ResultadoBatalha {
-  perfil: Perfil;
-  drop: DropBau;
-  acertos: number;
-  comboMax: number;
-  subiuNivel: boolean;
-  nivelAnterior: number;
-  nivelNovo: number;
-  medalhasNovas: string[];
-  trofeusNovos: string[];
-  missoesConcluidas: MissaoEstado[];
-  multiplicador?: number;
-  rewardType?: 'normal' | 'lucky' | 'rare' | 'epic';
-  moedasTotais?: number;
-}
 
 function comboMaximo(respostas: { correta: boolean }[]): number {
   let cur = 0, max = 0;

@@ -23,7 +23,8 @@ import { LeaderboardWidget } from '@/components/game-hub/leaderboard-widget';
 import { registarEvento } from '@/lib/metrics';
 import { mensagemGuardiao } from '@/data/guardian-messages';
 import { proximosObjetivos } from '@/lib/objectives';
-import { garantirMissoes, reclamarMissao, podeReclamar, TipoMissao } from '@/lib/missions';
+import { garantirMissoes, reclamarMissao, podeReclamar } from '@/lib/missions';
+import { TipoMissao } from '@/types';
 import { useDailyQuests } from '@/hooks/useDailyQuests';
 
 const MUNDOS = [
@@ -133,8 +134,8 @@ export function GameHubNew() {
   useEffect(() => {
     setMounted(true);
     if (loaded && !activeProfile) router.replace('/');
-    // Som de suspense quando entra
-    playSound('suspense');
+    // Som quando entra
+    playSound('open');
   }, [loaded, activeProfile, router, playSound]);
 
   useEffect(() => {

@@ -79,7 +79,12 @@ export function CollectionScreen() {
                   <span className="text-3xl" style={{ filter: ganha ? 'none' : 'grayscale(1) brightness(0.6)' }}>🏅</span>
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-white">{c.tema}</p>
-                    <p className="text-xs text-gray-400">{c.disciplina === 'Matematica' ? 'Matemática' : 'Português'} — {c.taxa}% de acerto</p>
+                    <p className="text-xs text-gray-400">{
+                      c.disciplina === 'Matematica' ? 'Matemática' :
+                      c.disciplina === 'Portugues' ? 'Português' :
+                      c.disciplina === 'Estudo do Meio' ? 'Estudo do Meio' :
+                      'Inglês'
+                    } — {c.taxa}% de acerto</p>
                   </div>
                   {ganha ? <span className="text-xs font-bold text-amber-300">Dominado!</span> : <span className="text-xs text-gray-500">Em progresso</span>}
                 </div>

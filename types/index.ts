@@ -1,6 +1,6 @@
 export type AnoEscolar = 2 | 5;
 export type GuardiaoTipo = 'LUMIS' | 'TORRAK';
-export type Disciplina = 'Matematica' | 'Portugues';
+export type Disciplina = 'Matematica' | 'Portugues' | 'Estudo do Meio' | 'Ingles';
 export type Dificuldade = 1 | 2 | 3;
 
 export interface Pergunta {
@@ -220,4 +220,50 @@ export interface CompetenciaProgresso {
   tentativas: number;
   taxa: number;                  // 0-100 percentagem de acerto
   dominado: boolean;             // atingiu critério de medalha
+}
+
+// === Tipos de Missões (Antes espalhados em lib/missions.ts) ===
+export type TipoMissao = 'diaria' | 'semanal' | 'mensal';
+
+export interface DeltasMissao {
+  batalhas?: number;
+  acertos?: number;
+  perguntas?: number;
+  vitorias_perfeitas?: number;
+  itens?: number;
+  comboMax?: number;
+}
+
+// === Tipos de Batalla (Antes em lib/battleFlow.ts) ===
+export interface ResultadoBatalha {
+  perfil: Perfil;
+  drop: DropBau;
+  acertos: number;
+  comboMax: number;
+  subiuNivel: boolean;
+  nivelAnterior: number;
+  nivelNovo: number;
+  medalhasNovas: string[];
+  trofeusNovos: string[];
+  missoesConcluidas: MissaoEstado[];
+  multiplicador?: number;
+  rewardType?: 'normal' | 'lucky' | 'rare' | 'epic';
+  moedasTotais?: number;
+}
+
+// === Tipos de Objetivos (Antes em lib/objectives.ts) ===
+export interface ObjetivoProximo {
+  icone: string;
+  texto: string;
+  tipo: 'missao' | 'nivel' | 'mundo' | 'colecao';
+}
+
+// === Tipos de Troféus (Antes em lib/achievements.ts) ===
+export interface ContextoTrofeu {
+  batalhas: number;
+  nivel: number;
+  melhorCombo: number;
+  colecaoCount: number;
+  medalhasCount: number;
+  mundoCompletos: number;
 }

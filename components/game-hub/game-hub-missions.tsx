@@ -2,16 +2,16 @@
 import { useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Target } from 'lucide-react';
-import { Profile, Mission, TipoMissao } from '@/types';
+import { Perfil, TipoMissao } from '@/types';
 import { MissionRow } from '@/components/game/mission-row';
 import { reclamarMissao, podeReclamar } from '@/lib/missions';
 import { registarEvento } from '@/lib/metrics';
 import { useSoundEffect } from '@/hooks/useSoundEffect';
 
 interface GameHubMissionsProps {
-  perfil: Profile;
+  perfil: Perfil;
   is2: boolean;
-  onUpdateProfile: (perfil: Profile) => void;
+  onUpdateProfile: (perfil: Perfil) => void;
 }
 
 export function GameHubMissions({ perfil, is2, onUpdateProfile }: GameHubMissionsProps) {
